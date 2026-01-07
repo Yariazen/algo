@@ -139,6 +139,11 @@
           when: privacy_enhancements_enabled | default(true)
           tags: privacy
 
+        - import_role:
+            name: haproxy
+          when: haproxy_enabled | default(false)
+          tags: haproxy
+
         - block:
             - name: Dump the configuration
               copy:

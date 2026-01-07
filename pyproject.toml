@@ -40,6 +40,7 @@ hetzner = [
 ]
 linode = [
     "linode-api4>=5.15.0",
+    "ansible-specdoc>=0.0.5",
 ]
 openstack = [
     "openstacksdk>=2.1.0",
