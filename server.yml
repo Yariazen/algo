@@ -37,6 +37,22 @@
                     IdentityFile {{ SSH_keys.private | realpath }}
                     KeepAlive yes
                     ServerAliveInterval 30
+
+            - name: Add SSH config to user's ~/.ssh/config
+              blockinfile:
+                path: "{{ lookup('env', 'HOME') }}/.ssh/config"
+                marker: "# {mark} ALGO VPN {{ algo_server_name }}"
+                block: |
+                  Host algo-vpn algo-{{ algo_server_name }}
+                    HostName {{ IP_subject_alt_name }}
+                    User {{ ansible_ssh_user }}
+                    Port {{ ansible_ssh_port }}
+                    IdentitiesOnly yes
+                    IdentityFile {{ SSH_keys.private | realpath }}
+                    KeepAlive yes
+                    ServerAliveInterval 30
+                create: yes
+                mode: "0600"
           when: inventory_hostname != 'localhost'
           become: false
           delegate_to: localhost
